@@ -41,10 +41,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #if defined(ANDROID) || (TARGET_OS_IPHONE == 1) || defined(__arm__)
 	#define MS_X264_CONF(required_bitrate, bitrate_limit, resolution, fps_pc, cpus_pc, fps_mobile, cpus_mobile) \
-		{ required_bitrate, bitrate_limit, { MS_VIDEO_SIZE_ ## resolution ## _W, MS_VIDEO_SIZE_ ## resolution ## _H },fps_pc, cpus_pc, NULL }
+		{ required_bitrate, bitrate_limit, { MS_VIDEO_SIZE_ ## resolution ## _W, MS_VIDEO_SIZE_ ## resolution ## _H },fps_mobile, cpus_mobile, NULL }
 #else
 	#define MS_X264_CONF(required_bitrate, bitrate_limit, resolution, fps_pc, cpus_pc, fps_mobile, cpus_mobile) \
-		{ required_bitrate, bitrate_limit, { MS_VIDEO_SIZE_ ## resolution ## _W, MS_VIDEO_SIZE_ ## resolution ## _H },fps_mobile, cpus_mobile, NULL }
+		{ required_bitrate, bitrate_limit, { MS_VIDEO_SIZE_ ## resolution ## _W, MS_VIDEO_SIZE_ ## resolution ## _H },fps_pc, cpus_pc, NULL }
 #endif
 
 
@@ -64,8 +64,7 @@ static const MSVideoConfiguration x264_conf_list[] = {
 
 	MS_X264_CONF( 128000,  	 512000,             CIF, 15,  1, 12, 2),
 
-	MS_X264_CONF( 100000,  	 380000,            QVGA, 15,  1, 15, 2), /*240p*/
-	MS_X264_CONF( 100000,  	 380000,            QVGA, 15,  1, 12, 1),
+	MS_X264_CONF( 100000,  	 380000,            QVGA, 15,  1, 12, 1), /*240p*/
 
 	MS_X264_CONF( 128000,    170000,            QCIF, 10,  1, 10, 1),
 	MS_X264_CONF(  64000,    128000,            QCIF, 10,  1, 7, 1),
