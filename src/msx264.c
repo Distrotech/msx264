@@ -146,7 +146,7 @@ static void apply_bitrate(MSFilter *f){
 	bitrate=(float)d->vconf.required_bitrate*0.92;
 	if (bitrate>RC_MARGIN)
 		bitrate-=RC_MARGIN;
-	
+
 	params->rc.i_rc_method = X264_RC_ABR;
 	params->rc.i_bitrate=(int)(bitrate/1000);
 	params->rc.f_rate_tolerance=0.1;
@@ -158,7 +158,7 @@ static void apply_bitrate(MSFilter *f){
 static void enc_preprocess(MSFilter *f){
 	EncData *d=(EncData*)f->data;
 	x264_param_t *params=&d->params;
-	
+
 	d->packer=rfc3984_new();
 	rfc3984_set_mode(d->packer,d->mode);
 	rfc3984_enable_stap_a(d->packer,FALSE);
@@ -169,7 +169,7 @@ static void enc_preprocess(MSFilter *f){
 #else
 	x264_param_default(params);
 #endif
-	
+
 	params->i_threads=ms_get_cpu_count();
 	params->i_sync_lookahead=0;
 	params->i_width=d->vconf.vsize.width;
@@ -178,7 +178,7 @@ static void enc_preprocess(MSFilter *f){
 	params->i_fps_den=1;
 	params->i_slice_max_size=ms_get_payload_max_size()-100; /*-100 security margin*/
 	params->i_level_idc=13;
-	
+
 	apply_bitrate(f);
 
 	params->rc.i_lookahead=0;
@@ -189,7 +189,7 @@ static void enc_preprocess(MSFilter *f){
 	 */
 	params->b_repeat_headers=1;
 	params->b_annexb=0;
-	
+
 	//these parameters must be set so that our stream is baseline
 	params->analyse.b_transform_8x8 = 0;
 	params->b_cabac = 0;
@@ -208,7 +208,7 @@ static void x264_nals_to_msgb(x264_nal_t *xnals, int num_nals, MSQueue * nalus){
 	/*int bytes;*/
 	for (i=0;i<num_nals;++i){
 		m=allocb(xnals[i].i_payload+10,0);
-		
+
 		memcpy(m->b_wptr,xnals[i].p_payload+4,xnals[i].i_payload-4);
 		m->b_wptr+=xnals[i].i_payload-4;
 		if (xnals[i].i_type==7) {
@@ -226,12 +226,12 @@ static void enc_process(MSFilter *f){
 	mblk_t *im;
 	MSPicture pic;
 	MSQueue nalus;
-	
+
 	if (d->enc==NULL){
 		ms_queue_flush(f->inputs[0]);
 		return;
 	}
-	
+
 	ms_queue_init(&nalus);
 	while((im=ms_queue_get(f->inputs[0]))!=NULL){
 		if (ms_yuv_buf_init_from_mblk(&pic,im)==0){
@@ -267,7 +267,7 @@ static void enc_process(MSFilter *f){
 
 			if (x264_encoder_encode(d->enc,&xnals,&num_nals,&xpic,&oxpic)>=0){
 				x264_nals_to_msgb(xnals,num_nals,&nalus);
-				/*if (num_nals == 0)	ms_message("Delayed frames info: current=%d max=%d\n", 
+				/*if (num_nals == 0)	ms_message("Delayed frames info: current=%d max=%d\n",
 					x264_encoder_delayed_frames(d->enc),
 					x264_encoder_maximum_delayed_frames(d->enc));
 				*/
@@ -445,6 +445,6 @@ static MSFilterDesc x264_enc_desc={
 
 MS2_PUBLIC void libmsx264_init(void){
 	ms_filter_register(&x264_enc_desc);
-	ms_message("ms264-" VERSION " plugin registered.");
+	ms_message("msx264-" VERSION " plugin registered.");
 }
 
