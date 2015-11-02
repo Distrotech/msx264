@@ -26,7 +26,7 @@ project(MSX264)
 
 set(PACKAGE "msx264")
 set(PACKAGE_NAME "${PACKAGE}")
-set(PACKAGE_VERSION "1.5.1")
+set(PACKAGE_VERSION "1.5.2")
 set(PACKAGE_STRING "${PACKAGE_NAME} ${PACKAGE_VERSION}")
 set(PACKAGE_BUGREPORT "support@belledonne-communications.com")
 set(PACKAGE_TARNAME "msx264")
