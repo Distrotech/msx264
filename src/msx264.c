@@ -443,8 +443,8 @@ static MSFilterDesc x264_enc_desc={
 
 #endif
 
-MS2_PUBLIC void libmsx264_init(void){
-	ms_filter_register(&x264_enc_desc);
+MS2_PUBLIC void libmsx264_init(MSFactory *factory){
+	ms_factory_register_filter(factory, &x264_enc_desc);
 	ms_message("msx264-" VERSION " plugin registered.");
 }
 
