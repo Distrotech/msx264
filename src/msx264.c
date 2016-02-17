@@ -176,7 +176,7 @@ static void enc_preprocess(MSFilter *f){
 	params->i_height=d->vconf.vsize.height;
 	params->i_fps_num=(int)d->vconf.fps;
 	params->i_fps_den=1;
-	params->i_slice_max_size=ms_get_payload_max_size()-100; /*-100 security margin*/
+	params->i_slice_max_size=ms_factory_get_payload_max_size(f->factory)-100; /*-100 security margin*/
 	params->i_level_idc=13;
 
 	apply_bitrate(f);
