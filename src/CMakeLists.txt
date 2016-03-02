@@ -27,11 +27,8 @@ set(LIBS
 
 set(SOURCE_FILES msx264.c)
 
-add_library(msx264-objects OBJECT ${SOURCE_FILES})
-set_target_properties(msx264-objects PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
-
 if(ENABLE_STATIC)
-	add_library(msx264-static STATIC $<TARGET_OBJECTS:msx264-objects>)
+	add_library(msx264-static STATIC ${SOURCE_FILES})
 	set_target_properties(msx264-static PROPERTIES OUTPUT_NAME msx264)
 	set_target_properties(msx264-static PROPERTIES LINKER_LANGUAGE CXX LINK_FLAGS "${LINK_FLAGS}")
 	target_link_libraries(msx264-static ${LIBS})
