@@ -1,4 +1,4 @@
-EXTRA_DIST=autogen.sh msx264.spec msx264.spec.in
+EXTRA_DIST=autogen.sh msx264.spec msx264.spec.in CMakeLists.txt cmake/FindX264.cmake config.h.cmake src/CMakeLists.txt
 
 SUBDIRS=src build
 
