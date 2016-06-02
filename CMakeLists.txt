@@ -21,7 +21,7 @@
 ############################################################################
 
 cmake_minimum_required(VERSION 3.0)
-project(msx264 VERSION 1.5.2 LANGUAGES C CXX)
+project(msx264 VERSION 1.5.3 LANGUAGES C CXX)
 
 
 set(PACKAGE "${PROJECT_NAME}")
